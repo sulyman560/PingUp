@@ -1,21 +1,78 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { dummyMessagesData, dummyUserData } from '../assets/assets'
 import { ImageIcon, SendHorizonal } from 'lucide-react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { useAuth } from '@clerk/clerk-react'
+import api from '../api/axios'
+import { addMessages, fetchMessages, resetMessages } from '../features/message/messageSlice'
+import toast from 'react-hot-toast'
 
 const ChatBox = () => {
 
-  const message = dummyMessagesData
+  const {messages} = useSelector((state)=>state.message)
+  const {userId} = useParams()
+  const {getToken} = useAuth()
+  const dispatch = useDispatch()
+  const connections = useSelector((state)=>state.connections.connections)
+
   const [text, setText] = useState('')
   const [image, setImage] = useState(null)
-  const [user, setUser] = useState(dummyUserData)
+  const [user, setUser] = useState(null)
   const messageEndRef = useRef(null)
 
-  const sendMessage = async () => {
+  const fetchUserMessages = async () => {
+    try {
+      const token = await getToken()
+      dispatch(fetchMessages({token, userId}))
 
+    } catch (error) {
+      
+    }
   }
+  const sendMessage = async () => {
+    try {
+      if (!text && !image) {
+        return
+      }
+      const token = await getToken()
+      const formData = new FormData();
+      formData.append('to_user_id', userId)
+      formData.append('text', text);
+      image && formData.append('image', image);
+
+      const {data} = await api.post('/api/message/send', formData, {
+        headers: {Authorization: `Bearer ${token}`}
+      })
+      if (data.success) {
+        setText('')
+        setImage(null)
+        dispatch(addMessages(data.message))
+      }else{
+        throw new Error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+  useEffect(()=>{
+    fetchUserMessages()
+
+    return ()=>{
+      dispatch(resetMessages())
+    }
+  },[userId])
+
+  useEffect(()=>{
+    if (connections.length > 0) {
+      const user = connections.find(connection => connection._id === userId)
+      setUser(user)
+    }
+  },[connections, userId])
+
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [message])
+  }, [messages])
 
   return user && (
     <div className='flex flex-col h-screen'>
@@ -29,7 +86,7 @@ const ChatBox = () => {
       </div>
       <div className='p-5 md:px-10 h-full overflow-y-scroll '>
         <div className='space-y-4 max-w-4xl mx-auto'>
-          {message.toSorted((a, b) => new Date(a.createdAt) - new Date(b.createdAt)).map((message, index) => (
+          {messages.toSorted((a, b) => new Date(a.createdAt) - new Date(b.createdAt)).map((message, index) => (
             <div key={index} className={`flex flex-col ${message.to_user_id !== user._id ? 'items-start' : 'items-end'}`}>
               <div className={`p-2 text-sm max-w-sm bg-white text-slate-700 rounded-lg shadow 
                     ${message.to_user_id !== user._id ? 'rounded-bl-none' : 'rounded-br-none'}`}>

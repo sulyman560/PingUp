@@ -67,7 +67,7 @@ const ViewStory = ({viewStory , setViewStory}) => {
       </div>
       {/* User info - Top List */}
         <div className='absolute top-4 left-4 flex items-center space-x-3 p-2 px-4 sm:p-4 sm:px-8 backdrop-blur-2xl rounded bg-black/50'>
-            <img src={viewStory.user?.profile_picture} className='ize-7 sm:size-8 rounded-full object-cover border border-white' alt="" />
+            <img src={viewStory.user?.profile_picture} className='size-7 sm:size-8 rounded-full object-cover border border-white' alt="" />
             <div className='text-white font-medium flex items-center gap-1.5'>
                 <span>{viewStory.user?.full_name}</span>
                 <BadgeCheck size={18} />

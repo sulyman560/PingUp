@@ -2,6 +2,7 @@ import fs from 'fs'
 import imagekit from '../configs/imagekit.js';
 import Story from '../models/Story.js';
 import { inngest } from '../inngest/index.js';
+import User from '../models/Users.js';
 
 
 // Add user story 
@@ -19,7 +20,7 @@ export const addUserStory = async (req,res) => {
                 file: fileBuffer,
                 fileName: media.originalname,
             })
-            media_type = response.url
+            media_url = response.url
         }
         // create story
         const story = await Story.create({
