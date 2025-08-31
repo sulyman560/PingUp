@@ -1,8 +1,10 @@
-import { Calendar, MapPin, PenBox, Verified } from 'lucide-react'
+import { Calendar, MapPin, MessageCircle, PenBox, Verified } from 'lucide-react'
 import React from 'react'
 import moment from 'moment'
+import { useNavigate } from 'react-router-dom'
 
 const UserProfileInfo = ({user, posts, profileId, setShowEdit}) => {
+    const navigate = useNavigate()
   return (
     <div className='relative py-4 px-6 md:px-8 bg-white'>
         <div className='flex flex-col md:flex-row items-start gap-6'>
@@ -19,6 +21,13 @@ const UserProfileInfo = ({user, posts, profileId, setShowEdit}) => {
                         </div>
                         <p className='text-gray-600'>{user.username ? `@${user.username}` : 'Add a username'}</p>
                     </div>
+                    {profileId && 
+                    <button onClick={()=> navigate(`/messages/${user._id}`)} className='cursor-pointer flex items-center  gap-2 border border-gray-300 
+                    hover:bg-gray-50 px-4 py-2 rounded-lg font-medium transition-colors mt-4 md:mt-0'>
+                        <MessageCircle className='w-4 h-4' />
+                        Message
+                    </button>
+                    }
                     {/* If user is not on others profile that means he is opening his profile so we will give edit button */}
                     {!profileId && 
                     <button onClick={()=> setShowEdit(true)} className='cursor-pointer flex items-center  gap-2 border border-gray-300 

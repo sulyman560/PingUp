@@ -42,7 +42,7 @@ const Feed = () => {
         <div className='p-4 space-y-6'>
           {feed.map((post)=>(
             <PostCard key={post._id} post={post} />
-          ))}
+          ))} 
         </div>
       </div>
       { /* Right sidebar */}
