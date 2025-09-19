@@ -3,40 +3,40 @@ import React from 'react'
 import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 
-const UserProfileInfo = ({user, posts, profileId, setShowEdit}) => {
+const UserProfileInfo = ({ user, posts, profileId, setShowEdit }) => {
     const navigate = useNavigate()
-  return (
-    <div className='relative py-4 px-6 md:px-8 bg-white'>
-        <div className='flex flex-col md:flex-row items-start gap-6'>
+    return (
+        <div className='relative py-4 px-6 md:px-8 bg-white'>
+            <div className='flex flex-col md:flex-row items-start gap-6'>
 
-            <div className='w-32 h-32 border-4 border-white shadow-lg absolute -top-16 rounded-full'>
-                <img src={user.profile_picture} className='absolute rounded-full z-2' alt="" />
-            </div>
-            <div className='w-full pt-16 md:pt-0 md:pl-36'>
-                <div className='flex flex-col md:flex-row items-start justify-between'>
-                    <div>
-                        <div className='flex items-center gap-3'>
-                            <h1 className='text-2xl font-bold text-gray-900'>{user.full_name}</h1>
-                            <Verified className='w-6 h-6 text-blue-900' />
-                        </div>
-                        <p className='text-gray-600'>{user.username ? `@${user.username}` : 'Add a username'}</p>
-                    </div>
-                    {profileId && 
-                    <button onClick={()=> navigate(`/messages/${user._id}`)} className='cursor-pointer flex items-center  gap-2 border border-gray-300 
-                    hover:bg-gray-50 px-4 py-2 rounded-lg font-medium transition-colors mt-4 md:mt-0'>
-                        <MessageCircle className='w-4 h-4' />
-                        Message
-                    </button>
-                    }
-                    {/* If user is not on others profile that means he is opening his profile so we will give edit button */}
-                    {!profileId && 
-                    <button onClick={()=> setShowEdit(true)} className='cursor-pointer flex items-center  gap-2 border border-gray-300 
-                    hover:bg-gray-50 px-4 py-2 rounded-lg font-medium transition-colors mt-4 md:mt-0'>
-                        <PenBox className='w-4 h-4' />
-                        Edit
-                    </button>
-                    }
+                <div className='w-32 h-32 border-4 border-white shadow-lg absolute -top-16 rounded-full'>
+                    <img src={user.profile_picture} className='absolute rounded-full z-2' alt="" />
                 </div>
+                <div className='w-full pt-16 md:pt-0 md:pl-36'>
+                    <div className='flex flex-col md:flex-row items-start justify-between'>
+                        <div>
+                            <div className='flex items-center gap-3'>
+                                <h1 className='text-2xl font-bold text-gray-900'>{user.full_name}</h1>
+                                <Verified className='w-6 h-6 text-blue-900' />
+                            </div>
+                            <p className='text-gray-600'>{user.username ? `@${user.username}` : 'Add a username'}</p>
+                        </div>
+                        {profileId &&
+                            <button onClick={() => navigate(`/messages/${user._id}`)} className='cursor-pointer flex items-center  gap-2 border border-gray-300 
+                                rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-700 hover:to-purple-800 active:scale-40 text-white transition px-4 py-2 font-medium transition-colors mt-4 md:mt-0'>
+                                <MessageCircle className='w-4 h-4' />
+                                Message
+                            </button>
+                        }
+                        {/* If user is not on others profile that means he is opening his profile so we will give edit button */}
+                        {!profileId &&
+                            <button onClick={() => setShowEdit(true)} className='cursor-pointer flex items-center  gap-2 border border-gray-300 
+                    hover:bg-gray-50 px-4 py-2 rounded-lg font-medium transition-colors mt-4 md:mt-0'>
+                                <PenBox className='w-4 h-4' />
+                                Edit
+                            </button>
+                        }
+                    </div>
                     <p className='text-gray-700 text-sm max-w-md mt-4'>{user.bio}</p>
                     <div className='flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-500 mt-4'>
                         <span className='flex  items-center gap-1.5'>
@@ -62,11 +62,11 @@ const UserProfileInfo = ({user, posts, profileId, setShowEdit}) => {
                             <span className='text-xs sm:text-sm ml-1.5 text-gray-500'>Following</span>
                         </div>
                     </div>
+                </div>
             </div>
+
         </div>
-      
-    </div>
-  )
+    )
 }
 
 export default UserProfileInfo

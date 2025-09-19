@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { dummyMessagesData, dummyUserData } from '../assets/assets'
 import { ImageIcon, SendHorizonal } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useAuth } from '@clerk/clerk-react'
 import api from '../api/axios'
 import { addMessages, fetchMessages, resetMessages } from '../features/message/messageSlice'
@@ -10,6 +10,7 @@ import toast from 'react-hot-toast'
 
 const ChatBox = () => {
 
+  const navigate = useNavigate()
   const {messages} = useSelector((state)=>state.message)
   const {userId} = useParams()
   const {getToken} = useAuth()
@@ -76,7 +77,7 @@ const ChatBox = () => {
 
   return user && (
     <div className='flex flex-col h-screen'>
-      <div className='flex items-center gap-2 p-2 md:px-10 xl:pl-42 bg-gradient-to-r from-indigo-50 to-purple-50 border-b 
+      <div onClick={()=> navigate('/profile/' + user._id)} className='cursor-pointer flex items-center gap-2 p-2 md:px-10 xl:pl-42 bg-gradient-to-r from-indigo-50 to-purple-50 border-b 
       border-gray- 300'>
         <img src={user.profile_picture} className='size-8 rounded-full' alt="" />
         <div>

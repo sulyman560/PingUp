@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Feed from './pages/Feed'
 import Messages from './pages/Messages'
@@ -21,6 +21,7 @@ import Notification from './components/Notification'
 import { useLocation } from 'react-router-dom';
 
 const App = () => {
+  
   const location = useLocation();
   const pathnameRef = useRef(location.pathname)
   const { user } = useUser();
@@ -29,7 +30,7 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (user) {
-        //getToken({ template: 'default' }).then((token) => console.log(token));
+        getToken({ template: 'default' }).then((token) => console.log(token));
         const token = await getToken()
         dispatch(fetchUser(token))
         dispatch(fetchConnections(token))
