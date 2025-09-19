@@ -143,7 +143,7 @@ const Comment = ({ post, posts, setPosts, likes, setLikes, comments, setComments
         </div>
 
         <div className="flex flex-col gap-5 mt-2">
-        {comments && comments.map((c) => (
+        {comments && comments.slice().reverse().map((c) => (
           <div key={c._id} className='flex flex-col items-start gap-1'>
             
             <div className='flex gap-2 items-start'>

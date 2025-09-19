@@ -131,7 +131,7 @@ const PostCard = ({ post }) => {
 
       </div>
       <div className="flex flex-col gap-5 mt-2">
-        {comments && comments.slice(0, 2).map((c) => (
+        {comments && comments.slice(-2).map((c) => (
           <div key={c._id} className='flex flex-col items-start gap-1'>
 
             <div className='flex gap-2 items-start'>
