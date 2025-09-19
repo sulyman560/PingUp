@@ -109,8 +109,7 @@ const Comment = ({ post, posts, setPosts, likes, setLikes, comments, setComments
           ))}
         </div>
         {/* Image */}
-        <div className='flex justify-between items-center gap-4 text-gray-600 text-sm pt-2 border-t border-b border-gray-300'>
-          <div className='flex flex-col items-start gap-1'>
+        <div className='flex flex-col items-start gap-1 pt-2 border-t border-gray-300'>
             <div className='flex items-center gap-1'>
               {posts.length > 0 && (
                 <p className="text-xs text-gray-500">
@@ -123,22 +122,22 @@ const Comment = ({ post, posts, setPosts, likes, setLikes, comments, setComments
               )}
 
             </div>
-
-            <div onClick={handleLike} className='cursor-pointer flex items-center gap-1'>
-              <Heart className={`w-8 h-10 ${likes.includes(currentUser._id) && 'text-red-500 fill-red-500'}`} />
-              <span className='text-xl'>{likes.length} Love</span>
-            </div>
-
           </div>
+        <div className='flex justify-between items-center gap-4 text-gray-600 text-sm '>
+          
+          <div onClick={handleLike} className='cursor-pointer flex items-center gap-1'>
+              <Heart className={`w-8 h-10 ${likes.includes(currentUser._id) && 'text-red-500 fill-red-500'}`} />
+              <span className='text-xl'>{likes.length}</span><p className='text-xl'>Love</p>
+            </div>
 
           <div onClick={() => setComment(true)} className='cursor-pointer flex items-center gap-1'>
             <MessageCircle className='w-8 h-10' />
-            <span className='text-xl'>{comments.length} Comment</span>
+            <span className='text-xl'>{comments.length}</span><p className='text-xl'>Comment</p>
           </div>
 
           <div className='cursor-pointer flex items-center gap-1'>
             <Share2 className='w-8 h-10' />
-            <span className='text-xl'>{7} Share</span>
+            <span className='text-xl'>{7}</span><p className='text-xl'>Share</p>
           </div>
 
         </div>
