@@ -12,7 +12,7 @@ const MenuItems = ({setSidebarOpen}) => {
             >
               <Icon className='w-5 h-5' />
               {label}
-              <div className='w-1.5 h-1.5 rounded-full bg-purple-600 mt-[-8px]'></div>
+              <div className='w-1.5 h-1.5 rounded-full bg-orange-500 mt-[-8px]'></div>
             </NavLink>
         ))
       }
